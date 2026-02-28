@@ -184,7 +184,7 @@
 		</div>
 	</section>
 
-	<!-- Subdomain setup -->
+	<!-- Subdomain tip -->
 	<section class="hint-section">
 		<div class="hint-header">
 			<svg
@@ -203,18 +203,17 @@
 					y2="16"
 				/>
 			</svg>
-			<h2>Subdomain setup (optional)</h2>
+			<h2>Two ways to switch tenants</h2>
 		</div>
 		<p class="hint-desc">
-			The <code>?tenant=</code> query param works out of the box. To use real subdomains locally,
-			add these lines to <code>/etc/hosts</code> and restart your browser:
+			Use the <code>?tenant=</code> query param, or go straight to the subdomain — modern browsers
+			resolve <code>*.localhost</code> automatically, no <code>/etc/hosts</code> setup needed.
 		</p>
-		<pre class="code-block">127.0.0.1  acme.localhost
-127.0.0.1  globex.localhost
-127.0.0.1  initech.localhost</pre>
-		<p class="hint-desc">
-			Then visit <code>http://acme.localhost:5173</code> directly — no query param needed.
-		</p>
+		<pre class="code-block"># Query param
+http://localhost:5173?tenant=acme
+
+# Subdomain (works out of the box)
+http://acme.localhost:5173</pre>
 	</section>
 </div>
 

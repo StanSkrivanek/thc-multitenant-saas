@@ -48,7 +48,7 @@ Open [http://localhost:5173](http://localhost:5173) — you'll land on the Acme 
 
 ## Demo Tenants & Accounts
 
-Use `?tenant=<slug>` or a real subdomain (see [Subdomain Setup](#subdomain-setup-optional)).
+Use `?tenant=<slug>` or a subdomain — both work out of the box (`*.localhost` resolves automatically in modern browsers, no `/etc/hosts` needed).
 
 | Email            | Password    | Role   | Tenant      | Plan       |
 | ---------------- | ----------- | ------ | ----------- | ---------- |
@@ -57,11 +57,15 @@ Use `?tenant=<slug>` or a real subdomain (see [Subdomain Setup](#subdomain-setup
 | carol@globex.com | password123 | owner  | Globex Inc  | pro        |
 | dave@initech.com | password123 | member | Initech LLC | free       |
 
-**Example URLs:**
-
+**Query param:**
 - `http://localhost:5173?tenant=acme`
 - `http://localhost:5173?tenant=globex`
 - `http://localhost:5173?tenant=initech`
+
+**Subdomain (no setup needed):**
+- `http://acme.localhost:5173`
+- `http://globex.localhost:5173`
+- `http://initech.localhost:5173`
 
 > Cross-tenant credentials are silently rejected — each account only works on its own tenant's URL.
 
@@ -105,18 +109,6 @@ src/
     ├── (app)/dashboard/      # Authenticated app shell
     └── (admin)/admin/panel/  # Admin-only panel
 ```
-
-## Subdomain Setup (Optional)
-
-The `?tenant=` query param works out of the box. For real subdomains locally, add these entries to `/etc/hosts`:
-
-```
-127.0.0.1  acme.localhost
-127.0.0.1  globex.localhost
-127.0.0.1  initech.localhost
-```
-
-Then visit `http://acme.localhost:5173` directly — no query param needed.
 
 ## Scripts
 
