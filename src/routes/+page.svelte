@@ -6,7 +6,6 @@
 	}
 
 	let { data }: Props = $props();
-	console.log('🚀 ~ data:', data);
 
 	const demoAccounts = [
 		{
@@ -244,23 +243,6 @@
 		box-shadow: var(--shadow);
 	}
 
-	.hero-eyebrow {
-		margin-bottom: 1.25rem;
-	}
-
-	.badge {
-		display: inline-flex;
-		align-items: center;
-		padding: 0.25rem 0.75rem;
-		background: var(--background);
-		border: 1px solid var(--border);
-		border-radius: 999px;
-		font-size: clamp(0.6875rem, 0.4vw + 0.5rem, 0.8125rem);
-		font-weight: 500;
-		color: var(--muted-foreground);
-		letter-spacing: 0.01em;
-	}
-
 	.hero-brand {
 		display: flex;
 		align-items: center;
@@ -277,7 +259,7 @@
 		font-size: clamp(2.25rem, 4vw + 1rem, 4.5rem);
 		font-weight: 900;
 		letter-spacing: -0.05em;
-		line-height: 1.0;
+		line-height: 1;
 	}
 
 	.hero-chips {
