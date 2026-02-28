@@ -38,7 +38,17 @@
 					<span class="user-role">{session.role}</span>
 				</div>
 			</div>
-			<form method="POST" action="/logout">
+			<form
+				method="POST"
+				action="/logout"
+				onsubmit={(e) => {
+					//in this DEMO we use custom temporary handle logout to base landing page redirection
+					e.preventDefault();
+					fetch('/logout', { method: 'POST' }).then(() => {
+						window.location.href = 'http://localhost:5173';
+					});
+				}}
+			>
 				<button type="submit" class="btn-ghost">Sign out</button>
 			</form>
 		{/if}
@@ -102,7 +112,9 @@
 		color: var(--muted-foreground);
 		padding: 0.375rem 0.625rem;
 		border-radius: var(--radius-sm);
-		transition: background 0.15s, color 0.15s;
+		transition:
+			background 0.15s,
+			color 0.15s;
 	}
 
 	.nav-link:hover {
@@ -167,7 +179,9 @@
 		font-weight: 500;
 		cursor: pointer;
 		color: var(--muted-foreground);
-		transition: background 0.15s, color 0.15s;
+		transition:
+			background 0.15s,
+			color 0.15s;
 		font-family: inherit;
 	}
 
