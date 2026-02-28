@@ -1,7 +1,6 @@
-<!-- src/routes/+layout.svelte -->
 <script lang="ts">
-	import type { AppConfig, Theme } from '$lib/types/context';
 	import { setContext } from 'svelte';
+	import type { AppConfig, Theme } from '$lib/types/context';
 
 	interface Props {
 		data: {
@@ -13,9 +12,20 @@
 
 	let { data, children }: Props = $props();
 
-	// Set global app config — consumed by any component that needs it
-	setContext<AppConfig>('appConfig', data.appConfig);
-	setContext('session', data.session);
+	// Getter wrappers for the same reason as tenant/features in (app)/+layout.svelte:
+	// data is reactive ($props). Reading data.appConfig or data.session directly
+	// at the top-level script body captures only the initial value. A getter
+	// defers the read so consumers always get the live value via .current.
+	setContext<{ readonly current: AppConfig }>('appConfig', {
+		get current() {
+			return data.appConfig;
+		}
+	});
+	setContext<{ readonly current: typeof data.session }>('session', {
+		get current() {
+			return data.session;
+		}
+	});
 
 	// Base theme — will be shadowed by tenant and admin layouts
 	const defaultTheme: Theme = {
@@ -33,10 +43,6 @@
 
 	setContext<Theme>('theme', defaultTheme);
 </script>
-
-<svelte:head>
-	<!-- <link rel="icon" href={favicon} /> -->
-</svelte:head>
 
 {@render children()}
 

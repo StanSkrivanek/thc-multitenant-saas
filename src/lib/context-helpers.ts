@@ -2,11 +2,14 @@
 import { getContext } from 'svelte';
 import type { Features, Tenant, Theme } from '$lib/types/context';
 
-// Theme is set directly (no getter wrapper needed — plain object)
+// Theme is set as a plain object with getter properties for reactive colors.
+// The object reference itself is stable — getContext returns it directly.
 export const getTheme = () => getContext<Theme>('theme');
 
-// Tenant and Features use the getter-object pattern.
-// These helpers return the wrapper — call .current in the component
-// so $derived can track the live value reactively.
+// All other context values use the getter-object pattern because they derive
+// from $props(). Call .current in the component and wrap with $derived so
+// Svelte tracks the dependency correctly.
 export const getTenantCtx = () => getContext<{ readonly current: Tenant }>('tenant');
 export const getFeaturesCtx = () => getContext<{ readonly current: Features }>('features');
+export const getSessionCtx = () => getContext<{ readonly current: UserSession | null }>('session');
+export const getAppConfigCtx = () => getContext<{ readonly current: AppConfig }>('appConfig');

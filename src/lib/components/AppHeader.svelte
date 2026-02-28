@@ -1,17 +1,16 @@
-<!-- src/lib/components/AppHeader.svelte -->
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { Tenant, Theme, UserSession } from '$lib/types/context';
 
 	const theme = getContext<Theme>('theme');
 	const tenantCtx = getContext<{ readonly current: Tenant }>('tenant');
-	const session = getContext<UserSession | null>('session');
-	console.log('🚀 ~ session:', session);
+	const sessionCtx = getContext<{ readonly current: UserSession | null }>('session');
 
-	// .current dereferences the getter — always returns the live tenant value
 	const tenant = $derived(tenantCtx.current);
+	const session = $derived(sessionCtx.current);
 </script>
 
+<!-- src/lib/components/AppHeader.svelte -->
 <header class="app-header" style:border-bottom-color={theme.colors.border}>
 	<div class="brand">
 		<span class="logo">{tenant.branding.logoEmoji}</span>
