@@ -1,6 +1,6 @@
 // src/lib/context-helpers.ts
 import { getContext } from 'svelte';
-import type { Features, Tenant, Theme } from '$lib/types/context';
+import type { Features, Tenant, Theme, UserSession, AppConfig } from '$lib/types/context';
 
 // Theme is set as a plain object with getter properties for reactive colors.
 // The object reference itself is stable — getContext returns it directly.

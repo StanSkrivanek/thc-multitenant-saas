@@ -40,6 +40,15 @@
 
 	<nav>
 		<a
+			href="/dashboard"
+			class="admin-link back-link"
+			style:color={theme.colors.textMuted}
+			style:--hover-bg={theme.colors.border}
+		>
+			← Dashboard
+		</a>
+		<div class="nav-divider" style:background={theme.colors.border}></div>
+		<a
 			href="/admin/panel"
 			class="admin-link"
 			style:color={theme.colors.textMuted}
