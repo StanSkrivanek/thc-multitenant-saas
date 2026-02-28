@@ -123,7 +123,7 @@
 				<span class="t-icon"><Rocket size={20} /></span>
 				<div class="t-info">
 					<strong>Acme Corp</strong>
-					<span>enterprise · indigo</span>
+					<span>enterprise · orange</span>
 					<code>?tenant=acme</code>
 				</div>
 			</a>
@@ -139,7 +139,7 @@
 				<span class="t-icon"><Building2 size={20} /></span>
 				<div class="t-info">
 					<strong>Initech LLC</strong>
-					<span>free · emerald</span>
+					<span>free · pink</span>
 					<code>?tenant=initech</code>
 				</div>
 			</a>
@@ -166,7 +166,7 @@
 				<div class="table-row">
 					<code class="email-cell">{account.email}</code>
 					<span class="role-badge" style:background={account.color}>{account.role}</span>
-				<span class="tenant-cell">
+					<span class="tenant-cell">
 						<TenantLogo icon={account.iconName} size={14} />
 						<span>{account.tenant}</span>
 					</span>
