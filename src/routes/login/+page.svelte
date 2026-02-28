@@ -11,14 +11,7 @@
 	let { data, form }: Props = $props();
 	let isSubmitting = $state(false);
 
-	//TODO:  data.tenant - This reference only captures the initial value of `data`. Did you mean to reference it inside a closure instead?
-	// https://svelte.dev/e/state_referenced_locallysveltestate_referenced_locally
-	//let data: {
-	//    tenant: Tenant | null;
-	//    returnUrl: string | null;
-	//}
-
-	const primaryColor = data.tenant?.branding.primaryColor ?? '#6366f1';
+	const primaryColor = $derived(data.tenant?.branding.primaryColor ?? '#6366f1');
 </script>
 
 <svelte:head>
