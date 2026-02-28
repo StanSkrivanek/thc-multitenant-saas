@@ -33,11 +33,11 @@
 		colors: {
 			primary: tenantTheme.colors.primary, // Keep tenant brand
 			accent: tenantTheme.colors.accent, // Keep tenant brand
-			background: '#0f172a',
-			surface: '#1e293b',
-			border: '#334155',
-			text: '#f1f5f9',
-			textMuted: '#94a3b8'
+			background: '#09090b', // zinc-950
+			surface: '#18181b', // zinc-900
+			border: '#27272a', // zinc-800
+			text: '#fafafa', // zinc-50
+			textMuted: '#a1a1aa' // zinc-400
 		}
 	};
 
@@ -74,7 +74,8 @@
 
 	.admin-content {
 		flex: 1;
-		padding: 2rem;
+		padding: 2rem 2.5rem;
 		overflow-y: auto;
+		min-width: 0;
 	}
 </style>

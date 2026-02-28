@@ -47,6 +47,12 @@
 		...defaultTheme,
 		colors: {
 			...defaultTheme.colors,
+			// Updated zinc-based neutral palette
+			background: '#ffffff',
+			surface: '#f4f4f5',
+			border: '#e4e4e7',
+			text: '#09090b',
+			textMuted: '#71717a',
 			get primary() {
 				return data.tenant.branding.primaryColor;
 			},
@@ -75,7 +81,7 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
-		background: #f8fafc;
+		background: var(--muted);
 	}
 
 	.app-body {
@@ -85,7 +91,8 @@
 
 	.app-content {
 		flex: 1;
-		padding: 2rem;
+		padding: 2rem 2.5rem;
 		overflow-y: auto;
+		min-width: 0;
 	}
 </style>

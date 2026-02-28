@@ -34,10 +34,10 @@
 			primary: '#6366f1',
 			accent: '#8b5cf6',
 			background: '#ffffff',
-			surface: '#f8fafc',
-			border: '#e2e8f0',
-			text: '#1e293b',
-			textMuted: '#64748b'
+			surface: '#f4f4f5',
+			border: '#e4e4e7',
+			text: '#09090b',
+			textMuted: '#71717a'
 		}
 	};
 
@@ -50,15 +50,48 @@
 	:global(*, *::before, *::after) {
 		box-sizing: border-box;
 	}
+	:global(:root) {
+		--background: #ffffff;
+		--foreground: #09090b;
+		--card: #ffffff;
+		--muted: #f4f4f5;
+		--muted-foreground: #71717a;
+		--border: #e4e4e7;
+		--input: #e4e4e7;
+		--radius-sm: 0.375rem;
+		--radius: 0.5rem;
+		--radius-lg: 0.75rem;
+		--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+		--shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+		--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	}
 	:global(body) {
 		margin: 0;
-		font-family:
-			system-ui,
-			-apple-system,
-			sans-serif;
+		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: 14px;
 		line-height: 1.5;
+		background: var(--background);
+		color: var(--foreground);
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
 	}
 	:global(a) {
 		color: inherit;
+		text-decoration: none;
+	}
+	:global(h1, h2, h3, h4, h5, h6) {
+		margin: 0;
+		line-height: 1.25;
+		letter-spacing: -0.02em;
+	}
+	:global(p) {
+		margin: 0;
+	}
+	:global(code) {
+		font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+		font-size: 0.8125em;
+		background: var(--muted);
+		padding: 0.15em 0.4em;
+		border-radius: 0.25rem;
 	}
 </style>

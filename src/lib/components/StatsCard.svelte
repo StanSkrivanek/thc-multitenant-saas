@@ -1,4 +1,3 @@
-<!-- src/lib/components/StatsCard.svelte -->
 <script lang="ts">
 	import { getContext } from 'svelte';
 	import type { Theme } from '$lib/types/context';
@@ -14,49 +13,53 @@
 	const theme = getContext<Theme>('theme');
 </script>
 
-<div class="stat-card" style:border-color={theme.colors.border}>
+<div class="stat-card">
 	<div class="stat-header">
-		<span class="stat-icon">{icon}</span>
 		<span class="stat-title">{title}</span>
+		<span class="stat-icon">{icon}</span>
 	</div>
 	<div class="stat-value" style:color={theme.colors.primary}>{value}</div>
-	{#if note}<div class="stat-note">{note}</div>{/if}
+	{#if note}<p class="stat-note">{note}</p>{/if}
 </div>
 
 <style>
 	.stat-card {
-		background: white;
-		border: 1px solid;
-		border-radius: 0.75rem;
-		padding: 1.25rem;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		padding: 1.25rem 1.5rem;
+		box-shadow: var(--shadow-sm);
 	}
 
 	.stat-header {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		margin-bottom: 0.75rem;
+		justify-content: space-between;
+		margin-bottom: 0.875rem;
+	}
+
+	.stat-title {
+		font-size: 0.8125rem;
+		font-weight: 500;
+		color: var(--muted-foreground);
+		letter-spacing: 0.01em;
 	}
 
 	.stat-icon {
-		font-size: 1.2rem;
-	}
-	.stat-title {
-		font-size: 0.8rem;
-		font-weight: 500;
-		color: #64748b;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
+		font-size: 1rem;
+		opacity: 0.6;
 	}
 
 	.stat-value {
-		font-size: 1.75rem;
+		font-size: 2rem;
 		font-weight: 700;
 		line-height: 1;
+		letter-spacing: -0.03em;
 	}
+
 	.stat-note {
 		font-size: 0.75rem;
-		color: #94a3b8;
-		margin-top: 0.4rem;
+		color: var(--muted-foreground);
+		margin-top: 0.375rem;
 	}
 </style>
