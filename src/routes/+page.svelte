@@ -81,7 +81,7 @@
 	</section>
 	<section
 		class="hero"
-		style:--primary="{primaryColor},"
+		style:--primary={primaryColor}
 		style:background="color-mix(in srgb, {primaryColor} 15%, transparent)"
 	>
 		<!-- <div class="hero-eyebrow">
