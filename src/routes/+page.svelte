@@ -62,14 +62,19 @@
 
 <div class="page">
 	<!-- Hero -->
+
+	<section class="lead-hero">
+		<h1>Multi-tenant SaaS with Svelte 5 Context API</h1>
+		<p>A complete multi-tenant SaaS demo built with SvelteKit and the Context API.</p>
+	</section>
 	<section
 		class="hero"
 		style:--primary="{primaryColor},"
 		style:background="color-mix(in srgb, {primaryColor} 15%, transparent)"
 	>
-		<div class="hero-eyebrow">
+		<!-- <div class="hero-eyebrow">
 			<span class="badge">Multi-Tenant SaaS Demo</span>
-		</div>
+		</div> -->
 		<div class="hero-brand">
 			<span class="hero-emoji">{data.tenant?.branding.logoEmoji ?? '⬡'}</span>
 			<h1 style:color={primaryColor}>{data.tenant?.name ?? 'SaaS Demo'}</h1>
@@ -208,6 +213,28 @@
 		/* color: #ff6452; */
 	}
 
+	/* Lead hero */
+	.lead-hero {
+		padding: 1rem 0 0.5rem;
+	}
+
+	.lead-hero h1 {
+		font-size: clamp(2.5rem, 5vw + 1rem, 5.5rem);
+		font-weight: 900;
+		letter-spacing: -0.05em;
+		line-height: 0.95;
+		color: var(--foreground);
+		margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+	}
+
+	.lead-hero p {
+		font-size: clamp(1rem, 1.25vw + 0.5rem, 1.25rem);
+		color: var(--muted-foreground);
+		line-height: 1.7;
+		letter-spacing: -0.01em;
+		max-width: 52ch;
+	}
+
 	/* Hero */
 	.hero {
 		background: var(--card);
@@ -228,7 +255,7 @@
 		background: var(--background);
 		border: 1px solid var(--border);
 		border-radius: 999px;
-		font-size: 0.75rem;
+		font-size: clamp(0.6875rem, 0.4vw + 0.5rem, 0.8125rem);
 		font-weight: 500;
 		color: var(--muted-foreground);
 		letter-spacing: 0.01em;
@@ -242,14 +269,15 @@
 	}
 
 	.hero-emoji {
-		font-size: 2.25rem;
+		font-size: clamp(1.75rem, 2.5vw + 0.5rem, 2.75rem);
 		line-height: 1;
 	}
 
 	.hero-brand h1 {
-		font-size: 2rem;
-		font-weight: 800;
-		letter-spacing: -0.04em;
+		font-size: clamp(2.25rem, 4vw + 1rem, 4.5rem);
+		font-weight: 900;
+		letter-spacing: -0.05em;
+		line-height: 1.0;
 	}
 
 	.hero-chips {
@@ -259,7 +287,7 @@
 	}
 
 	.chip {
-		font-size: 0.8125rem;
+		font-size: clamp(0.75rem, 0.4vw + 0.5rem, 0.875rem);
 		color: var(--muted-foreground);
 		background: var(--background);
 		padding: 0.2rem 0.625rem;
@@ -267,11 +295,12 @@
 	}
 
 	.hero-desc {
-		font-size: 0.9375rem;
+		font-size: clamp(1rem, 1.25vw + 0.5rem, 1.1875rem);
 		color: var(--muted-foreground);
 		margin-bottom: 1.5rem;
-		max-width: 580px;
-		line-height: 1.65;
+		max-width: 560px;
+		line-height: 1.7;
+		letter-spacing: -0.005em;
 	}
 
 	.btn-primary {
@@ -281,7 +310,7 @@
 		color: white;
 		border-radius: var(--radius-sm);
 		font-weight: 600;
-		font-size: 0.9375rem;
+		font-size: clamp(0.9rem, 0.75vw + 0.5rem, 1.0625rem);
 		transition:
 			opacity 0.15s,
 			box-shadow 0.15s;
@@ -306,14 +335,14 @@
 	}
 
 	.section-header h2 {
-		font-size: 1rem;
+		font-size: clamp(0.9375rem, 0.75vw + 0.5rem, 1.125rem);
 		font-weight: 600;
 		margin-bottom: 0.375rem;
 		color: var(--foreground);
 	}
 
 	.section-header p {
-		font-size: 0.875rem;
+		font-size: clamp(0.875rem, 0.5vw + 0.5rem, 1rem);
 		color: var(--muted-foreground);
 		line-height: 1.6;
 	}
@@ -343,7 +372,7 @@
 	}
 
 	.t-emoji {
-		font-size: 1.375rem;
+		font-size: clamp(1.25rem, 1.5vw + 0.25rem, 1.625rem);
 	}
 
 	.t-info {
@@ -353,18 +382,18 @@
 	}
 
 	.t-info strong {
-		font-size: 0.875rem;
+		font-size: clamp(0.875rem, 0.5vw + 0.5rem, 1rem);
 		font-weight: 600;
 		color: var(--foreground);
 	}
 
 	.t-info span {
-		font-size: 0.75rem;
+		font-size: clamp(0.6875rem, 0.3vw + 0.5rem, 0.8125rem);
 		color: var(--muted-foreground);
 	}
 
 	.t-info code {
-		font-size: 0.6875rem;
+		font-size: clamp(0.625rem, 0.3vw + 0.4rem, 0.75rem);
 		color: var(--color);
 		background: color-mix(in srgb, var(--color) 8%, transparent);
 		padding: 0.125rem 0.375rem;
@@ -398,7 +427,7 @@
 		align-items: center;
 		padding: 0.625rem 1rem;
 		border-top: 1px solid var(--border);
-		font-size: 0.875rem;
+		font-size: clamp(0.8125rem, 0.5vw + 0.5rem, 0.9375rem);
 	}
 
 	.table-row:hover {
@@ -407,7 +436,7 @@
 
 	.email-cell {
 		color: var(--foreground);
-		font-size: 0.8125rem;
+		font-size: clamp(0.75rem, 0.4vw + 0.45rem, 0.875rem);
 	}
 
 	.role-badge {
@@ -427,7 +456,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
-		font-size: 0.8125rem;
+		font-size: clamp(0.75rem, 0.4vw + 0.45rem, 0.875rem);
 		color: var(--foreground);
 	}
 
@@ -438,7 +467,7 @@
 	}
 
 	.url-link {
-		font-size: 0.75rem;
+		font-size: clamp(0.6875rem, 0.3vw + 0.45rem, 0.8125rem);
 		font-family: ui-monospace, monospace;
 		transition: opacity 0.15s;
 	}
@@ -475,12 +504,12 @@
 	}
 
 	.hint-header h2 {
-		font-size: 0.9375rem;
+		font-size: clamp(0.875rem, 0.75vw + 0.5rem, 1.0625rem);
 		font-weight: 600;
 	}
 
 	.hint-desc {
-		font-size: 0.875rem;
+		font-size: clamp(0.875rem, 0.5vw + 0.5rem, 1rem);
 		color: #2e2e37;
 		line-height: 1.6;
 	}
@@ -490,7 +519,7 @@
 		color: #e4e4e7;
 		padding: 0.875rem 1.125rem;
 		border-radius: var(--radius);
-		font-size: 0.8125rem;
+		font-size: clamp(0.75rem, 0.4vw + 0.5rem, 0.875rem);
 		font-family: ui-monospace, monospace;
 		line-height: 1.75;
 		margin: 0;
