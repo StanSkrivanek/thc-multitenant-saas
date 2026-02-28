@@ -64,7 +64,10 @@
 
 	<section class="lead-hero">
 		<h1>Multi-tenant SaaS with Svelte 5 Context API</h1>
-		<p>A complete multi-tenant SaaS demo built with SvelteKit and the Context API.</p>
+		<p>
+			A fully working multi-tenant SaaS demo built with SvelteKit and the Context API. Tenant
+			branding, feature flags, and role-based admin — all from context, no prop drilling.
+		</p>
 	</section>
 	<section
 		class="hero"
@@ -85,8 +88,8 @@
 			</div>
 		{/if}
 		<p class="hero-desc">
-			A complete multi-tenant SaaS demo built with SvelteKit and the Context API. Tenant branding,
-			feature flags, and role-based admin — all from context, no prop drilling.
+			Each tenant has its own isolated data, branding, and feature flags determined by the URL. Sign
+			in to see the magic!
 		</p>
 		<a href={loginUrl} class="btn-primary" style:background={primaryColor}>Sign in →</a>
 	</section>
