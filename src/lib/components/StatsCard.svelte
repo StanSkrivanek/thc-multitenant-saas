@@ -1,22 +1,25 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
+	import type { ComponentType, SvelteComponent } from 'svelte';
 	import type { Theme } from '$lib/types/context';
 
 	interface Props {
 		title: string;
 		value: string | number;
-		icon?: string;
+		icon?: ComponentType<SvelteComponent>;
 		note?: string;
 	}
 
-	let { title, value, icon = '📌', note }: Props = $props();
+	let { title, value, icon: IconComponent, note }: Props = $props();
 	const theme = getContext<Theme>('theme');
 </script>
 
 <div class="stat-card">
 	<div class="stat-header">
 		<span class="stat-title">{title}</span>
-		<span class="stat-icon">{icon}</span>
+		{#if IconComponent}
+			<span class="stat-icon"><IconComponent size={16} /></span>
+		{/if}
 	</div>
 	<div class="stat-value" style:color={theme.colors.primary}>{value}</div>
 	{#if note}<p class="stat-note">{note}</p>{/if}
@@ -46,7 +49,9 @@
 	}
 
 	.stat-icon {
-		font-size: 1rem;
+		display: flex;
+		align-items: center;
+		color: var(--muted-foreground);
 		opacity: 0.6;
 	}
 

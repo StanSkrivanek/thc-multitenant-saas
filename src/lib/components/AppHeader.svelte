@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
+	import TenantLogo from '$lib/components/TenantLogo.svelte';
 	import type { Tenant, Theme, UserSession } from '$lib/types/context';
 
 	const theme = getContext<Theme>('theme');
@@ -12,7 +13,7 @@
 
 <header class="app-header">
 	<div class="brand">
-		<span class="logo-emoji">{tenant.branding.logoEmoji}</span>
+		<span class="logo-icon"><TenantLogo icon={tenant.branding.logoIcon} size={20} /></span>
 		<span class="tenant-name">{tenant.name}</span>
 		<span class="plan-badge" style:background={theme.colors.primary}>{tenant.plan}</span>
 	</div>
@@ -66,9 +67,10 @@
 		flex-shrink: 0;
 	}
 
-	.logo-emoji {
-		font-size: 1.25rem;
-		line-height: 1;
+	.logo-icon {
+		display: flex;
+		align-items: center;
+		color: var(--foreground);
 	}
 
 	.tenant-name {

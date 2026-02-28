@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import TenantLogo from '$lib/components/TenantLogo.svelte';
+	import { Building2, Rocket, Zap } from 'lucide-svelte';
 	import type { Tenant } from '$lib/types/context';
 
 	interface Props {
@@ -21,7 +23,9 @@
 	<div class="login-card">
 		<div class="card-header">
 			<div class="brand">
-				<span class="logo-emoji">{data.tenant?.branding.logoEmoji ?? '⬡'}</span>
+				<span class="logo-icon">
+					<TenantLogo icon={data.tenant?.branding.logoIcon ?? 'rocket'} size={24} />
+				</span>
 				<span class="brand-name">{data.tenant?.name ?? 'SaaS Demo'}</span>
 			</div>
 			<h1>Sign in to your account</h1>
@@ -119,22 +123,22 @@
 				<div class="hint-row">
 					<code>alice@acme.com</code>
 					<span class="hint-badge admin">admin</span>
-					<span class="hint-tenant">🚀 acme.localhost</span>
+					<span class="hint-tenant"><Rocket size={11} /> acme.localhost</span>
 				</div>
 				<div class="hint-row">
 					<code>bob@acme.com</code>
 					<span class="hint-badge member">member</span>
-					<span class="hint-tenant">🚀 acme.localhost</span>
+					<span class="hint-tenant"><Rocket size={11} /> acme.localhost</span>
 				</div>
 				<div class="hint-row">
 					<code>carol@globex.com</code>
 					<span class="hint-badge owner">owner</span>
-					<span class="hint-tenant">⚡ globex.localhost</span>
+					<span class="hint-tenant"><Zap size={11} /> globex.localhost</span>
 				</div>
 				<div class="hint-row">
 					<code>dave@initech.com</code>
 					<span class="hint-badge member">member</span>
-					<span class="hint-tenant">🏢 initech.localhost</span>
+					<span class="hint-tenant"><Building2 size={11} /> initech.localhost</span>
 				</div>
 			</div>
 		</div>
@@ -177,9 +181,10 @@
 		margin-bottom: 0.75rem;
 	}
 
-	.logo-emoji {
-		font-size: 1.5rem;
-		line-height: 1;
+	.logo-icon {
+		display: flex;
+		align-items: center;
+		color: var(--foreground);
 	}
 
 	.brand-name {
@@ -340,6 +345,9 @@
 	}
 
 	.hint-tenant {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
 		margin-left: auto;
 		color: var(--muted-foreground);
 		font-size: 0.6875rem;

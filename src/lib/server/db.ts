@@ -1,6 +1,6 @@
 // src/lib/server/db.ts
 
-import type { Features, Tenant, UserSession } from '$lib/types/context';
+import type { Features, Tenant, TenantIconName, UserSession } from '$lib/types/context';
 
 // ─── Internal shapes ────────────────────────────────────────────────────────
 
@@ -10,7 +10,7 @@ interface DBTenant {
 	name: string;
 	plan: 'free' | 'pro' | 'enterprise';
 	branding: {
-		logoEmoji: string;
+		logoIcon: TenantIconName;
 		primaryColor: string;
 		accentColor: string;
 	};
@@ -47,8 +47,8 @@ const tenants: DBTenant[] = [
 		name: 'Acme Corp',
 		plan: 'enterprise',
 		branding: {
-			logoEmoji: '🚀',
-			primaryColor: '#ff6452', // indigo
+			logoIcon: 'rocket',
+			primaryColor: '#ff6452',
 			accentColor: '#ff7961'
 		}
 	},
@@ -58,8 +58,8 @@ const tenants: DBTenant[] = [
 		name: 'Globex Inc',
 		plan: 'pro',
 		branding: {
-			logoEmoji: '⚡',
-			primaryColor: '#0ec5e9', // sky blue
+			logoIcon: 'zap',
+			primaryColor: '#0ec5e9',
 			accentColor: '#33a6e0'
 		}
 	},
@@ -69,8 +69,8 @@ const tenants: DBTenant[] = [
 		name: 'Initech LLC',
 		plan: 'free',
 		branding: {
-			logoEmoji: '🏢',
-			primaryColor: '#ff7ee1', // emerald
+			logoIcon: 'building2',
+			primaryColor: '#ff7ee1',
 			accentColor: '#ff17bd'
 		}
 	}

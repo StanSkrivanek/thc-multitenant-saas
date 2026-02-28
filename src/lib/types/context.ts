@@ -19,12 +19,14 @@ export interface Theme {
 	};
 }
 
+export type TenantIconName = 'rocket' | 'zap' | 'building2';
+
 export interface Tenant {
 	id: string;
 	slug: string;
 	name: string;
 	branding: {
-		logoEmoji: string; // emoji used as logo in this demo (no image hosting needed)
+		logoIcon: TenantIconName;
 		primaryColor: string; // CSS color string
 		accentColor: string;
 	};

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Activity, ArrowRight, Code, Globe, LayoutDashboard, Settings } from 'lucide-svelte';
 	import type { Features, Theme } from '$lib/types/context';
 	import { getContext } from 'svelte';
 
@@ -11,52 +12,20 @@
 	<nav class="sidebar-nav">
 		<div class="section-label">Main</div>
 		<a href="/dashboard" class="nav-item" style:--primary={theme.colors.primary}>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-			><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect
-				x="14"
-				y="14"
-				width="7"
-				height="7"
-			/><rect x="3" y="14" width="7" height="7" /></svg
-			>
+			<LayoutDashboard size={16} />
 			Dashboard
 		</a>
 
 		{#if features.advancedReporting}
 			<a href="/dashboard" class="nav-item" style:--primary={theme.colors.primary}>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg
-				>
+				<Activity size={16} />
 				Reports
 			</a>
 		{/if}
 
 		{#if features.apiAccess}
 			<a href="/dashboard" class="nav-item" style:--primary={theme.colors.primary}>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg
-				>
+				<Code size={16} />
 				API
 			</a>
 		{/if}
@@ -65,35 +34,13 @@
 
 		{#if features.customDomains}
 			<a href="/dashboard" class="nav-item" style:--primary={theme.colors.primary}>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-				><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path
-					d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-				/></svg
-				>
+				<Globe size={16} />
 				Domains
 			</a>
 		{/if}
 
 		<a href="/dashboard" class="nav-item" style:--primary={theme.colors.primary}>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-			><circle cx="12" cy="12" r="3" /><path
-				d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"
-			/></svg
-			>
+			<Settings size={16} />
 			Settings
 		</a>
 	</nav>
@@ -102,7 +49,7 @@
 		<div class="upgrade-nudge" style:--primary={theme.colors.primary}>
 			<p class="nudge-title">Upgrade your plan</p>
 			<p class="nudge-desc">Get priority support and more features.</p>
-			<a href="/dashboard" class="nudge-link">Learn more →</a>
+			<a href="/dashboard" class="nudge-link">Learn more <ArrowRight size={11} /></a>
 		</div>
 	{/if}
 </aside>
@@ -153,7 +100,7 @@
 		transition: background 0.15s, color 0.15s;
 	}
 
-	.nav-item svg {
+	.nav-item :global(svg) {
 		flex-shrink: 0;
 		opacity: 0.7;
 	}
@@ -163,7 +110,7 @@
 		color: var(--primary);
 	}
 
-	.nav-item:hover svg {
+	.nav-item:hover :global(svg) {
 		opacity: 1;
 	}
 
@@ -189,6 +136,9 @@
 	}
 
 	.nudge-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
 		font-size: 0.75rem;
 		font-weight: 600;
 		color: var(--primary);

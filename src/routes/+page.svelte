@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { Tenant } from '$lib/types/context';
+	import TenantLogo from '$lib/components/TenantLogo.svelte';
+	import { ArrowRight, Building2, Rocket, Zap } from 'lucide-svelte';
+	import type { Tenant, TenantIconName } from '$lib/types/context';
 
 	interface Props {
 		data: { tenant: Tenant | null };
@@ -7,12 +9,20 @@
 
 	let { data }: Props = $props();
 
-	const demoAccounts = [
+	const demoAccounts: Array<{
+		email: string;
+		role: string;
+		tenant: string;
+		iconName: TenantIconName;
+		color: string;
+		url: string;
+		subdomain: string;
+	}> = [
 		{
 			email: 'alice@acme.com',
 			role: 'admin',
 			tenant: 'Acme Corp',
-			emoji: '🚀',
+			iconName: 'rocket',
 			color: '#ff6452',
 			url: 'http://localhost:5173?tenant=acme',
 			subdomain: 'http://acme.localhost:5173'
@@ -21,7 +31,7 @@
 			email: 'bob@acme.com',
 			role: 'member',
 			tenant: 'Acme Corp',
-			emoji: '🚀',
+			iconName: 'rocket',
 			color: '#ff6452',
 			url: 'http://localhost:5173?tenant=acme',
 			subdomain: 'http://acme.localhost:5173'
@@ -30,7 +40,7 @@
 			email: 'carol@globex.com',
 			role: 'owner',
 			tenant: 'Globex Inc',
-			emoji: '⚡',
+			iconName: 'zap',
 			color: '#0ec5e9',
 			url: 'http://localhost:5173?tenant=globex',
 			subdomain: 'http://globex.localhost:5173'
@@ -39,7 +49,7 @@
 			email: 'dave@initech.com',
 			role: 'member',
 			tenant: 'Initech LLC',
-			emoji: '🏢',
+			iconName: 'building2',
 			color: '#ff7ee1',
 			url: 'http://localhost:5173?tenant=initech',
 			subdomain: 'http://initech.localhost:5173'
@@ -78,7 +88,9 @@
 			<span class="badge">Multi-Tenant SaaS Demo</span>
 		</div> -->
 		<div class="hero-brand">
-			<span class="hero-emoji">{data.tenant?.branding.logoEmoji ?? '⬡'}</span>
+			<span class="hero-icon">
+				<TenantLogo icon={data.tenant?.branding.logoIcon ?? 'rocket'} size={36} />
+			</span>
 			<h1 style:color={primaryColor}>{data.tenant?.name ?? 'SaaS Demo'}</h1>
 		</div>
 		{#if data.tenant}
@@ -91,7 +103,9 @@
 			Each tenant has its own isolated data, branding, and feature flags determined by the URL. Sign
 			in to see the magic!
 		</p>
-		<a href={loginUrl} class="btn-primary" style:background={primaryColor}>Sign in →</a>
+		<a href={loginUrl} class="btn-primary" style:background={primaryColor}>
+			Sign in <ArrowRight size={14} />
+		</a>
 	</section>
 
 	<!-- Tenants -->
@@ -106,7 +120,7 @@
 		</div>
 		<div class="tenants-grid">
 			<a href="http://localhost:5173?tenant=acme" class="tenant-card" style:--color="#ff6452">
-				<span class="t-emoji">🚀</span>
+				<span class="t-icon"><Rocket size={20} /></span>
 				<div class="t-info">
 					<strong>Acme Corp</strong>
 					<span>enterprise · indigo</span>
@@ -114,7 +128,7 @@
 				</div>
 			</a>
 			<a href="http://localhost:5173?tenant=globex" class="tenant-card" style:--color="#0ec5e9">
-				<span class="t-emoji">⚡</span>
+				<span class="t-icon"><Zap size={20} /></span>
 				<div class="t-info">
 					<strong>Globex Inc</strong>
 					<span>pro · sky blue</span>
@@ -122,7 +136,7 @@
 				</div>
 			</a>
 			<a href="http://localhost:5173?tenant=initech" class="tenant-card" style:--color="#ff7ee1">
-				<span class="t-emoji">🏢</span>
+				<span class="t-icon"><Building2 size={20} /></span>
 				<div class="t-info">
 					<strong>Initech LLC</strong>
 					<span>free · emerald</span>
@@ -152,8 +166,8 @@
 				<div class="table-row">
 					<code class="email-cell">{account.email}</code>
 					<span class="role-badge" style:background={account.color}>{account.role}</span>
-					<span class="tenant-cell">
-						<span>{account.emoji}</span>
+				<span class="tenant-cell">
+						<TenantLogo icon={account.iconName} size={14} />
 						<span>{account.tenant}</span>
 					</span>
 					<div class="url-cell">
@@ -253,9 +267,10 @@
 		margin-bottom: 0.75rem;
 	}
 
-	.hero-emoji {
-		font-size: clamp(1.75rem, 2.5vw + 0.5rem, 2.75rem);
-		line-height: 1;
+	.hero-icon {
+		display: flex;
+		align-items: center;
+		color: var(--foreground);
 	}
 
 	.hero-brand h1 {
@@ -356,8 +371,11 @@
 		background: color-mix(in srgb, var(--color) 8%, transparent);
 	}
 
-	.t-emoji {
-		font-size: clamp(1.25rem, 1.5vw + 0.25rem, 1.625rem);
+	.t-icon {
+		display: flex;
+		align-items: center;
+		color: var(--foreground);
+		flex-shrink: 0;
 	}
 
 	.t-info {

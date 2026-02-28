@@ -1,6 +1,7 @@
 <script lang="ts">
 	import RequireFeature from '$lib/components/RequireFeature.svelte';
 	import StatsCard from '$lib/components/StatsCard.svelte';
+	import { Activity, FileText, Plug, Users } from 'lucide-svelte';
 	import type { Features, Tenant, Theme } from '$lib/types/context';
 	import { getContext } from 'svelte';
 
@@ -37,20 +38,20 @@
 
 	<!-- Stats grid — some cards only appear with the right features -->
 	<div class="stats-grid">
-		<StatsCard title="Active Users" value={data.stats.users} icon="👥" />
-		<StatsCard title="Live Sessions" value={data.stats.sessions} icon="🟢" />
+		<StatsCard title="Active Users" value={data.stats.users} icon={Users} />
+		<StatsCard title="Live Sessions" value={data.stats.sessions} icon={Activity} />
 
 		<RequireFeature feature="apiAccess">
 			<StatsCard
 				title="API Calls"
 				value={data.stats.apiCalls.toLocaleString()}
-				icon="🔌"
+				icon={Plug}
 				note="last 30 days"
 			/>
 		</RequireFeature>
 
 		<RequireFeature feature="advancedReporting">
-			<StatsCard title="Documents" value={data.stats.documents} icon="📄" />
+			<StatsCard title="Documents" value={data.stats.documents} icon={FileText} />
 		</RequireFeature>
 	</div>
 

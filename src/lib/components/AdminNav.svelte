@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ArrowLeft, LayoutDashboard, Shield, User } from 'lucide-svelte';
 	import { getContext } from 'svelte';
 	import type { Theme } from '$lib/types/context';
 
@@ -16,19 +17,7 @@
 	style:border-right-color={theme.colors.border}
 >
 	<div class="admin-brand">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="16"
-			height="16"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			style:color={theme.colors.primary}
-			><path
-				d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-			/></svg
-		>
+		<Shield size={16} color={theme.colors.primary} />
 		<span style:color={theme.colors.text}>Admin Panel</span>
 	</div>
 
@@ -54,16 +43,7 @@
 			style:color={theme.colors.textMuted}
 			style:--hover-bg={theme.colors.border}
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="14"
-				height="14"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				><line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" /></svg
-			>
+			<ArrowLeft size={14} />
 			Dashboard
 		</a>
 
@@ -75,21 +55,7 @@
 			style:color={theme.colors.textMuted}
 			style:--hover-bg={theme.colors.border}
 		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="14"
-				height="14"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect
-					x="14"
-					y="14"
-					width="7"
-					height="7"
-				/><rect x="3" y="14" width="7" height="7" /></svg
-			>
+			<LayoutDashboard size={14} />
 			Overview
 		</a>
 	</nav>
@@ -99,16 +65,7 @@
 		style:border-color={theme.colors.border}
 		style:color={theme.colors.textMuted}
 	>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="12"
-			height="12"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg
-		>
+		<User size={12} />
 		Viewing: <strong style:color={theme.colors.text}>{stats.tenantName}</strong>
 	</div>
 </aside>
