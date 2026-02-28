@@ -6,6 +6,7 @@
 	}
 
 	let { data }: Props = $props();
+	console.log('🚀 ~ data:', data);
 
 	const demoAccounts = [
 		{
@@ -47,6 +48,12 @@
 	];
 
 	const primaryColor = $derived(data.tenant?.branding.primaryColor ?? '#6366f1');
+
+	// When a tenant is active, send the user to their subdomain login page so
+	// cross-tenant isolation works correctly from the very first click.
+	const loginUrl = $derived(
+		data.tenant ? `http://${data.tenant.slug}.localhost:5173/login` : '/login'
+	);
 </script>
 
 <svelte:head>
@@ -66,16 +73,14 @@
 		{#if data.tenant}
 			<div class="hero-chips">
 				<span class="chip">plan: <strong>{data.tenant.plan}</strong></span>
-				<span class="chip"
-					>primary: <code style:color={primaryColor}>{primaryColor}</code></span
-				>
+				<span class="chip">primary: <code style:color={primaryColor}>{primaryColor}</code></span>
 			</div>
 		{/if}
 		<p class="hero-desc">
 			A complete multi-tenant SaaS demo built with SvelteKit and the Context API. Tenant branding,
 			feature flags, and role-based admin — all from context, no prop drilling.
 		</p>
-		<a href="/login" class="btn-primary" style:background={primaryColor}>Sign in →</a>
+		<a href={loginUrl} class="btn-primary" style:background={primaryColor}>Sign in →</a>
 	</section>
 
 	<!-- Tenants -->
@@ -121,8 +126,8 @@
 		<div class="section-header">
 			<h2>Demo accounts</h2>
 			<p>
-				All passwords are <code>password123</code>. Each account must be accessed from its
-				tenant’s URL — cross-tenant credentials are silently rejected.
+				All passwords are <code>password123</code>. Each account must be accessed from its tenant’s
+				URL — cross-tenant credentials are silently rejected.
 			</p>
 		</div>
 		<div class="accounts-table">
@@ -182,7 +187,9 @@
 		<pre class="code-block">127.0.0.1  acme.localhost
 127.0.0.1  globex.localhost
 127.0.0.1  initech.localhost</pre>
-		<p class="hint-desc">Then visit <code>http://acme.localhost:5173</code> directly — no query param needed.</p>
+		<p class="hint-desc">
+			Then visit <code>http://acme.localhost:5173</code> directly — no query param needed.
+		</p>
 	</section>
 </div>
 
@@ -271,7 +278,9 @@
 		border-radius: var(--radius-sm);
 		font-weight: 600;
 		font-size: 0.9375rem;
-		transition: opacity 0.15s, box-shadow 0.15s;
+		transition:
+			opacity 0.15s,
+			box-shadow 0.15s;
 		box-shadow: var(--shadow-sm);
 	}
 
@@ -321,7 +330,9 @@
 		border-left: 3px solid var(--color);
 		border-radius: var(--radius);
 		padding: 0.875rem 1rem;
-		transition: box-shadow 0.15s, transform 0.15s;
+		transition:
+			box-shadow 0.15s,
+			transform 0.15s;
 	}
 
 	.tenant-card:hover {
