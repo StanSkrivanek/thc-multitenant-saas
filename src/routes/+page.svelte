@@ -14,7 +14,7 @@
 			role: 'admin',
 			tenant: 'Acme Corp',
 			emoji: '🚀',
-			color: '#6366f1',
+			color: '#ff6452',
 			url: 'http://localhost:5173?tenant=acme',
 			subdomain: 'http://acme.localhost:5173'
 		},
@@ -23,7 +23,7 @@
 			role: 'member',
 			tenant: 'Acme Corp',
 			emoji: '🚀',
-			color: '#6366f1',
+			color: '#ff6452',
 			url: 'http://localhost:5173?tenant=acme',
 			subdomain: 'http://acme.localhost:5173'
 		},
@@ -32,7 +32,7 @@
 			role: 'owner',
 			tenant: 'Globex Inc',
 			emoji: '⚡',
-			color: '#0ea5e9',
+			color: '#0ec5e9',
 			url: 'http://localhost:5173?tenant=globex',
 			subdomain: 'http://globex.localhost:5173'
 		},
@@ -41,13 +41,13 @@
 			role: 'member',
 			tenant: 'Initech LLC',
 			emoji: '🏢',
-			color: '#10b981',
+			color: '#ff7ee1',
 			url: 'http://localhost:5173?tenant=initech',
 			subdomain: 'http://initech.localhost:5173'
 		}
 	];
 
-	const primaryColor = $derived(data.tenant?.branding.primaryColor ?? '#6366f1');
+	const primaryColor = $derived(data.tenant?.branding.primaryColor ?? '#ff6452');
 
 	// When a tenant is active, send the user to their subdomain login page so
 	// cross-tenant isolation works correctly from the very first click.
@@ -62,7 +62,11 @@
 
 <div class="page">
 	<!-- Hero -->
-	<section class="hero" style:--primary={primaryColor}>
+	<section
+		class="hero"
+		style:--primary="{primaryColor},"
+		style:background="color-mix(in srgb, {primaryColor} 15%, transparent)"
+	>
 		<div class="hero-eyebrow">
 			<span class="badge">Multi-Tenant SaaS Demo</span>
 		</div>
@@ -94,7 +98,7 @@
 			</p>
 		</div>
 		<div class="tenants-grid">
-			<a href="http://localhost:5173?tenant=acme" class="tenant-card" style:--color="#6366f1">
+			<a href="http://localhost:5173?tenant=acme" class="tenant-card" style:--color="#ff6452">
 				<span class="t-emoji">🚀</span>
 				<div class="t-info">
 					<strong>Acme Corp</strong>
@@ -102,7 +106,7 @@
 					<code>?tenant=acme</code>
 				</div>
 			</a>
-			<a href="http://localhost:5173?tenant=globex" class="tenant-card" style:--color="#0ea5e9">
+			<a href="http://localhost:5173?tenant=globex" class="tenant-card" style:--color="#0ec5e9">
 				<span class="t-emoji">⚡</span>
 				<div class="t-info">
 					<strong>Globex Inc</strong>
@@ -110,7 +114,7 @@
 					<code>?tenant=globex</code>
 				</div>
 			</a>
-			<a href="http://localhost:5173?tenant=initech" class="tenant-card" style:--color="#10b981">
+			<a href="http://localhost:5173?tenant=initech" class="tenant-card" style:--color="#ff7ee1">
 				<span class="t-emoji">🏢</span>
 				<div class="t-info">
 					<strong>Initech LLC</strong>
@@ -201,6 +205,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+		/* color: #ff6452; */
 	}
 
 	/* Hero */
@@ -209,7 +214,6 @@
 		border: 1px solid var(--border);
 		border-radius: var(--radius-lg);
 		padding: 2rem 2.5rem;
-		border-top: 3px solid var(--primary);
 		box-shadow: var(--shadow);
 	}
 
@@ -221,7 +225,7 @@
 		display: inline-flex;
 		align-items: center;
 		padding: 0.25rem 0.75rem;
-		background: var(--muted);
+		background: var(--background);
 		border: 1px solid var(--border);
 		border-radius: 999px;
 		font-size: 0.75rem;
@@ -257,7 +261,7 @@
 	.chip {
 		font-size: 0.8125rem;
 		color: var(--muted-foreground);
-		background: var(--muted);
+		background: var(--background);
 		padding: 0.2rem 0.625rem;
 		border-radius: var(--radius-sm);
 	}
@@ -327,7 +331,6 @@
 		gap: 0.75rem;
 		background: var(--background);
 		border: 1px solid var(--border);
-		border-left: 3px solid var(--color);
 		border-radius: var(--radius);
 		padding: 0.875rem 1rem;
 		transition:
@@ -336,8 +339,7 @@
 	}
 
 	.tenant-card:hover {
-		box-shadow: var(--shadow);
-		transform: translateY(-1px);
+		background: color-mix(in srgb, var(--color) 8%, transparent);
 	}
 
 	.t-emoji {
@@ -456,8 +458,8 @@
 
 	/* Hint section */
 	.hint-section {
-		background: #fefce8;
-		border: 1px solid #fef08a;
+		background: var(--muted);
+		border: 1px solid #b6b6b6;
 		border-radius: var(--radius-lg);
 		padding: 1.25rem 1.5rem;
 		display: flex;
@@ -469,7 +471,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		color: #854d0e;
+		color: #fa1b53;
 	}
 
 	.hint-header h2 {
@@ -479,7 +481,7 @@
 
 	.hint-desc {
 		font-size: 0.875rem;
-		color: #713f12;
+		color: #2e2e37;
 		line-height: 1.6;
 	}
 

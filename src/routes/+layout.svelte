@@ -31,8 +31,8 @@
 	const defaultTheme: Theme = {
 		mode: 'light',
 		colors: {
-			primary: '#6366f1',
-			accent: '#8b5cf6',
+			primary: '#ff6452',
+			accent: '#FF1C01',
 			background: '#ffffff',
 			surface: '#f4f4f5',
 			border: '#e4e4e7',
@@ -67,7 +67,12 @@
 	}
 	:global(body) {
 		margin: 0;
-		font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-family:
+			'Inter',
+			-apple-system,
+			BlinkMacSystemFont,
+			'Segoe UI',
+			sans-serif;
 		font-size: 14px;
 		line-height: 1.5;
 		background: var(--background);

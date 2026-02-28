@@ -48,8 +48,8 @@ const tenants: DBTenant[] = [
 		plan: 'enterprise',
 		branding: {
 			logoEmoji: '🚀',
-			primaryColor: '#6366f1', // indigo
-			accentColor: '#8b5cf6'
+			primaryColor: '#ff6452', // indigo
+			accentColor: '#ff7961'
 		}
 	},
 	{
@@ -59,8 +59,8 @@ const tenants: DBTenant[] = [
 		plan: 'pro',
 		branding: {
 			logoEmoji: '⚡',
-			primaryColor: '#0ea5e9', // sky blue
-			accentColor: '#06b6d4'
+			primaryColor: '#0ec5e9', // sky blue
+			accentColor: '#33a6e0'
 		}
 	},
 	{
@@ -70,8 +70,8 @@ const tenants: DBTenant[] = [
 		plan: 'free',
 		branding: {
 			logoEmoji: '🏢',
-			primaryColor: '#10b981', // emerald
-			accentColor: '#059669'
+			primaryColor: '#ff7ee1', // emerald
+			accentColor: '#ff17bd'
 		}
 	}
 ];
