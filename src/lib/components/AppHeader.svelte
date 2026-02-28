@@ -6,6 +6,7 @@
 	const theme = getContext<Theme>('theme');
 	const tenantCtx = getContext<{ readonly current: Tenant }>('tenant');
 	const session = getContext<UserSession | null>('session');
+	console.log('🚀 ~ session:', session);
 
 	// .current dereferences the getter — always returns the live tenant value
 	const tenant = $derived(tenantCtx.current);

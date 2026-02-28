@@ -9,6 +9,11 @@
 
 	let { stats }: Props = $props();
 	const theme = getContext<Theme>('theme');
+
+	// Alternatively, AdminNav could read adminStats directly from context
+	// via getContext<{ readonly current: ... }>('adminStats').current
+	// but receiving it as a prop from the layout keeps the component
+	// decoupled from the context key name — easier to test in isolation.
 </script>
 
 <aside
