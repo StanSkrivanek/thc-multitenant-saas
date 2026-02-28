@@ -1,4 +1,3 @@
-<!-- src/routes/(app)/dashboard/+page.svelte -->
 <script lang="ts">
 	import RequireFeature from '$lib/components/RequireFeature.svelte';
 	import StatsCard from '$lib/components/StatsCard.svelte';

@@ -1,4 +1,3 @@
-<!-- src/routes/(app)/+layout.svelte -->
 <script lang="ts">
 	import { getContext, setContext } from 'svelte';
 	import AppHeader from '$lib/components/AppHeader.svelte';

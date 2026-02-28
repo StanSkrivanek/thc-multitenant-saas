@@ -4,7 +4,7 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 
 // Routes that guests can access without logging in
-const PUBLIC_PATHS = ['/login'];
+const PUBLIC_PATHS = ['/', '/login'];
 
 export const load: LayoutServerLoad = async ({ locals, url }) => {
 	const { tenant, session } = locals;
