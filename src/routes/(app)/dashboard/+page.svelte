@@ -1,9 +1,9 @@
 <!-- src/routes/(app)/dashboard/+page.svelte -->
 <script lang="ts">
-	import { getContext } from 'svelte';
-	import StatsCard from '$lib/components/StatsCard.svelte';
 	import RequireFeature from '$lib/components/RequireFeature.svelte';
+	import StatsCard from '$lib/components/StatsCard.svelte';
 	import type { Features, Tenant, Theme } from '$lib/types/context';
+	import { getContext } from 'svelte';
 
 	interface Props {
 		data: {
@@ -14,8 +14,11 @@
 	let { data }: Props = $props();
 
 	const theme = getContext<Theme>('theme');
-	const tenant = getContext<Tenant>('tenant');
-	const features = getContext<Features>('features');
+	const tenantCtx = getContext<{ readonly current: Tenant }>('tenant');
+	const featuresCtx = getContext<{ readonly current: Features }>('features');
+
+	const tenant = $derived(tenantCtx.current);
+	const features = $derived(featuresCtx.current);
 </script>
 
 <svelte:head>

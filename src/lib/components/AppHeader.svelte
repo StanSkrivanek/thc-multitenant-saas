@@ -4,8 +4,11 @@
 	import type { Tenant, Theme, UserSession } from '$lib/types/context';
 
 	const theme = getContext<Theme>('theme');
-	const tenant = getContext<Tenant>('tenant');
+	const tenantCtx = getContext<{ readonly current: Tenant }>('tenant');
 	const session = getContext<UserSession | null>('session');
+
+	// .current dereferences the getter — always returns the live tenant value
+	const tenant = $derived(tenantCtx.current);
 </script>
 
 <header class="app-header" style:border-bottom-color={theme.colors.border}>

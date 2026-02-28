@@ -1,6 +1,5 @@
 <!-- src/routes/(app)/+layout.svelte -->
 <script lang="ts">
-	// TODO:  Step 10 - reference to components that do not exist yet - will be added in later steps. Ignore errors for now.
 	import { getContext, setContext } from 'svelte';
 	import AppHeader from '$lib/components/AppHeader.svelte';
 	import AppSidebar from '$lib/components/AppSidebar.svelte';
@@ -13,22 +12,48 @@
 
 	let { data, children }: Props = $props();
 
-	// Set tenant and features — consumed by dashboard pages
-	setContext<Tenant>('tenant', data.tenant);
-	setContext<Features>('features', data.features);
+	// Set tenant and features using getter objects so context always reflects
+	// the *current* value of data — not only the initial snapshot.
+	//
+	// Why getters? data comes from $props(), which is reactive. Reading
+	// data.tenant directly at the top-level script body — outside any reactive
+	// context — means Svelte can only capture the value once at initialization.
+	// If SvelteKit re-runs the load function (e.g. after invalidateAll() or a
+	// form action), data updates but the context value would silently stay stale.
+	//
+	// Wrapping each read in a getter closure defers the access to call time.
+	// Svelte tracks the dependency correctly, and consumers always get the
+	// live value via .current.
+	setContext<{ readonly current: Tenant }>('tenant', {
+		get current() {
+			return data.tenant;
+		}
+	});
+	setContext<{ readonly current: Features }>('features', {
+		get current() {
+			return data.features;
+		}
+	});
 
 	// Get the default theme from the root layout
 	const defaultTheme = getContext<Theme>('theme');
 
-	// Build a tenant-branded theme — same 'theme' key, shadowed value
+	// Build a tenant-branded theme — same 'theme' key, shadowed value.
 	// Any component in (app)/* that calls getContext('theme') gets this,
 	// NOT the root default.
+	//
+	// Branding colors also use getters so the theme stays in sync if data
+	// updates after SvelteKit invalidation.
 	const tenantTheme: Theme = {
 		...defaultTheme,
 		colors: {
 			...defaultTheme.colors,
-			primary: data.tenant.branding.primaryColor,
-			accent: data.tenant.branding.accentColor
+			get primary() {
+				return data.tenant.branding.primaryColor;
+			},
+			get accent() {
+				return data.tenant.branding.accentColor;
+			}
 		}
 	};
 

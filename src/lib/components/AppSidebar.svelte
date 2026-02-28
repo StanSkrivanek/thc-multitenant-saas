@@ -4,7 +4,8 @@
 	import { getContext } from 'svelte';
 
 	const theme = getContext<Theme>('theme');
-	const features = getContext<Features>('features');
+	const featuresCtx = getContext<{ readonly current: Features }>('features');
+	const features = $derived(featuresCtx.current);
 </script>
 
 <aside class="sidebar" style:border-right-color={theme.colors.border}>
