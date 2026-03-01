@@ -1,8 +1,8 @@
 <script lang="ts">
 	import RequireFeature from '$lib/components/RequireFeature.svelte';
 	import StatsCard from '$lib/components/StatsCard.svelte';
-	import { Activity, FileText, Plug, Users } from 'lucide-svelte';
 	import type { Features, Tenant, Theme } from '$lib/types/context';
+	import { Activity, FileText, Plug, Users } from 'lucide-svelte';
 	import { getContext } from 'svelte';
 
 	interface Props {
@@ -104,23 +104,22 @@
 				<code>tenant</code> and <code>features</code>.
 			</li>
 			<li>
-				<strong>This page</strong> called <code>getContext('theme')</code> and got the tenant
-				branding — not the default — because context shadowing resolves to the nearest ancestor.
+				<strong>This page</strong> called <code>getContext('theme')</code> and got the tenant branding
+				— not the default — because context shadowing resolves to the nearest ancestor.
 			</li>
 		</ol>
 		<p class="explainer-note">
-			Switch to <code>globex.localhost</code> for sky-blue or <code>initech.localhost</code> for
-			emerald. Same components, different context values.
+			Switch to <code>globex.localhost</code> for sky-blue or <code>initech.localhost</code> for emerald.
+			Same components, different context values.
 		</p>
 	</section>
 </div>
 
 <style>
 	.dashboard {
-		max-width: 880px;
-		display: flex;
+		display: -webkit-inline-flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 1rem;
 	}
 
 	.page-header {
