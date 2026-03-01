@@ -54,7 +54,11 @@
 	</div>
 
 	<!-- Plan + features card -->
-	<div class="plan-card" style:background={theme.colors.surface} style:border-color={theme.colors.border}>
+	<div
+		class="plan-card"
+		style:background={theme.colors.surface}
+		style:border-color={theme.colors.border}
+	>
 		<div class="plan-row">
 			<span style:color={theme.colors.textMuted}>Plan</span>
 			<span
@@ -71,7 +75,7 @@
 				{data.tenant.plan}
 			</span>
 		</div>
-		<div class="features-row" style:border-top-color={theme.colors.border}>
+		<div class="features-row" style:border-top-color={theme.colors.primary}>
 			{#each featureKeys as key}
 				<div class="feature-pill" style:color={theme.colors.textMuted}>
 					{#if data.tenant.features[key]}
@@ -83,8 +87,8 @@
 							fill="none"
 							stroke="currentColor"
 							stroke-width="2.5"
-							style:color={theme.colors.primary}
-						><polyline points="20 6 9 17 4 12" /></svg>
+							style:color={theme.colors.primary}><polyline points="20 6 9 17 4 12" /></svg
+						>
 					{:else}
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -95,9 +99,12 @@
 							stroke="currentColor"
 							stroke-width="2.5"
 							style:color={theme.colors.border}
-						><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+							><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg
+						>
 					{/if}
-					<span style:color={data.tenant.features[key] ? theme.colors.text : theme.colors.textMuted}>
+					<span
+						style:color={data.tenant.features[key] ? theme.colors.text : theme.colors.textMuted}
+					>
 						{featureLabels[key]}
 					</span>
 				</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
+	import { enhance } from '$app/forms';
 	import TenantLogo from '$lib/components/TenantLogo.svelte';
 	import type { Tenant, Theme, UserSession } from '$lib/types/context';
 
@@ -41,12 +42,9 @@
 			<form
 				method="POST"
 				action="/logout"
-				onsubmit={(e) => {
-					//in this DEMO we use custom temporary handle logout to base landing page redirection
-					e.preventDefault();
-					fetch('/logout', { method: 'POST' }).then(() => {
-						window.location.href = 'http://localhost:5173';
-					});
+				use:enhance={() => async () => {
+					// DEMO: redirect to base landing page after logout
+					window.location.href = 'http://localhost:5173';
 				}}
 			>
 				<button type="submit" class="btn-ghost">Sign out</button>

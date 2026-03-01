@@ -114,7 +114,7 @@ const users: DBUser[] = [
 		name: 'Bob Baker',
 		email: 'bob@acme.com',
 		password: 'password123',
-		role: 'admin'
+		role: 'member'
 	},
 	{
 		id: 'user_charlie',
