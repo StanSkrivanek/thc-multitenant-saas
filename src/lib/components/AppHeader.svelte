@@ -21,7 +21,7 @@
 
 	<nav class="nav-links">
 		<a href="/dashboard" class="nav-link">Dashboard</a>
-		{#if session?.role === 'admin' || session?.role === 'owner'}
+		{#if session?.role === 'admin' || session?.role === 'owner' || session?.role === 'superadmin'}
 			<a href="/admin/panel" class="nav-link nav-link-admin" style:color={theme.colors.accent}>
 				Admin Panel
 			</a>

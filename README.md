@@ -15,7 +15,7 @@ A fully working **multi-tenant SaaS demo** built with **SvelteKit** and the **Sv
 - **Multi-tenancy** — tenant is resolved from the subdomain (`acme.localhost`) or a `?tenant=` query param; all isolation happens in a single server hook before any load function runs
 - **Per-tenant branding** — each tenant has its own logo icon, primary color, and accent color applied at runtime
 - **Plan-based feature flags** — `free`, `pro`, and `enterprise` plans control which features are visible per tenant
-- **Role-based access** — `member`, `admin`, and `owner` roles gate different parts of the UI, including an admin panel
+- **Role-based access** — `member`, `admin`, `owner`, and `superadmin` roles gate different parts of the UI; the platform superadmin can see all customer tenants across the platform
 - **Svelte 5 Context API** — tenant, session, features, theme, and app config are distributed via typed context helpers; no prop-drilling anywhere
 - **Server-side session isolation** — cross-tenant sessions are silently rejected in the hook layer
 - **Zero external dependencies** — no database, no auth library; everything runs in-memory for instant local setup
@@ -34,7 +34,7 @@ A fully working **multi-tenant SaaS demo** built with **SvelteKit** and the **Sv
 
 ```sh
 # 1. Clone the repo
-git clone https://github.com/your-username/sv-saas-mt.git
+git clone https://github.com/stanskrivanek/sv-saas-mt.git
 cd sv-saas-mt
 
 # 2. Install dependencies
@@ -50,19 +50,23 @@ Open [http://localhost:5173](http://localhost:5173) — you'll land on the Acme 
 
 Use `?tenant=<slug>` or a subdomain — both work out of the box (`*.localhost` resolves automatically in modern browsers, no `/etc/hosts` needed).
 
-| Email            | Password    | Role   | Tenant      | Plan       |
-| ---------------- | ----------- | ------ | ----------- | ---------- |
-| alice@acme.com   | password123 | admin  | Acme Corp   | enterprise |
-| bob@acme.com     | password123 | member | Acme Corp   | enterprise |
-| carol@globex.com | password123 | owner  | Globex Inc  | pro        |
-| dave@initech.com | password123 | member | Initech LLC | free       |
+| Email              | Password    | Role       | Tenant        | Plan       |
+| ------------------ | ----------- | ---------- | ------------- | ---------- |
+| admin@platform.com | password123 | superadmin | SaaS Platform | —          |
+| alice@acme.com     | password123 | owner      | Acme Corp     | enterprise |
+| bob@acme.com       | password123 | member     | Acme Corp     | enterprise |
+| carol@globex.com   | password123 | owner      | Globex Inc    | pro        |
+| dave@initech.com   | password123 | owner      | Initech LLC   | free       |
 
 **Query param:**
+
 - `http://localhost:5173?tenant=acme`
 - `http://localhost:5173?tenant=globex`
 - `http://localhost:5173?tenant=initech`
 
 **Subdomain (no setup needed):**
+
+- `http://platform.localhost:5173` — superadmin login
 - `http://acme.localhost:5173`
 - `http://globex.localhost:5173`
 - `http://initech.localhost:5173`
@@ -107,7 +111,8 @@ src/
     ├── login/                # Login form (tenant-scoped)
     ├── logout/               # Session cleanup
     ├── (app)/dashboard/      # Authenticated app shell
-    └── (admin)/admin/panel/  # Admin-only panel
+    ├── (admin)/admin/panel/   # Superadmin — all tenants view
+    └── (admin)/admin/members/ # Admin/owner — tenant members view
 ```
 
 ## Scripts
