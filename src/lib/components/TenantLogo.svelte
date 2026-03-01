@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Building2, Hexagon, Rocket, Zap } from 'lucide-svelte';
+	import { Building2, Hexagon, Rocket, Shield, Zap } from 'lucide-svelte';
 	import type { TenantIconName } from '$lib/types/context';
 
 	interface Props {
@@ -16,6 +16,8 @@
 	<Zap {size} />
 {:else if icon === 'building2'}
 	<Building2 {size} />
+{:else if icon === 'shield'}
+	<Shield {size} />
 {:else}
 	<Hexagon {size} />
 {/if}

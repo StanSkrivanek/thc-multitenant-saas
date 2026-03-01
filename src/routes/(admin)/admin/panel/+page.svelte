@@ -45,10 +45,7 @@
 <div class="panel">
 	<div class="page-header">
 		<h1 style:color={theme.colors.text}>All Tenants</h1>
-		<p style:color={theme.colors.textMuted}>
-			Viewing all tenants in the system. Theme mode:
-			<code style:color={theme.colors.primary}>{theme.mode}</code> — shadowed by the admin layout.
-		</p>
+		<p style:color={theme.colors.textMuted}>All customer tenants on the platform.</p>
 	</div>
 
 	<div class="tenant-table" style:border-color={theme.colors.border}>
@@ -113,28 +110,6 @@
 		{/each}
 	</div>
 
-	<div
-		class="context-note"
-		style:background={theme.colors.surface}
-		style:border-color={theme.colors.border}
-	>
-		<h2 style:color={theme.colors.text}>Context Shadowing in Action</h2>
-		<p style:color={theme.colors.textMuted}>
-			The dashboard at <code style:color={theme.colors.primary}>/dashboard</code> uses the
-			<strong style:color={theme.colors.text}>tenant-branded theme</strong>
-			(light mode). This admin panel uses the
-			<strong style:color={theme.colors.text}>dark admin theme</strong> — same component, same
-			<code style:color={theme.colors.primary}>getContext('theme')</code> call, different value
-			because
-			<code style:color={theme.colors.primary}>(admin)/+layout.svelte</code> shadows the tenant theme
-			with a dark palette while preserving primary and accent colors.
-		</p>
-		<p style:color={theme.colors.textMuted}>
-			Context shadowing creates clean, composable layering without global state. No prop threading.
-			No store imports. Just <code style:color={theme.colors.primary}>setContext</code> +
-			<code style:color={theme.colors.primary}>getContext</code>.
-		</p>
-	</div>
 </div>
 
 <style>

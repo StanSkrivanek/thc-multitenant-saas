@@ -11,20 +11,36 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		redirect(303, '/login');
 	}
 
-	// Hard gate — non-admins get 403, not a redirect
-	if (session.role !== 'admin' && session.role !== 'owner') {
+	// Hard gate — members get 403, not a redirect
+	if (!['admin', 'owner', 'superadmin'].includes(session.role)) {
 		error(403, 'You need admin or owner role to access this area.');
 	}
 
-	// Admin-only stats
-	const allTenants = db.tenants.all();
+	const isSuperAdmin = session.role === 'superadmin';
+
+	if (isSuperAdmin) {
+		// Platform-level view: counts across all customer tenants
+		return {
+			adminStats: {
+				totalTenants: db.tenants.customer().length,
+				totalUsers: db.users.allCustomer().length,
+				activeSessions: 1,
+				tenantName: 'Platform',
+				isSuperAdmin: true
+			}
+		};
+	}
+
+	// Tenant-scoped view: counts for this tenant only
+	const memberCount = db.users.forTenant(tenant!.id).length;
 
 	return {
 		adminStats: {
-			totalTenants: allTenants.length,
-			totalUsers: 4, // Would be db.users.count() in production
-			activeSessions: 1, // Would query sessions in production
-			tenantName: tenant?.name ?? 'Unknown'
+			totalTenants: 1,
+			totalUsers: memberCount,
+			activeSessions: 1,
+			tenantName: tenant?.name ?? 'Unknown',
+			isSuperAdmin: false
 		}
 	};
 };

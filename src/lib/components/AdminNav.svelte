@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { ArrowLeft, LayoutDashboard, Shield, User } from 'lucide-svelte';
+	import { ArrowLeft, LayoutDashboard, Shield, Users, User } from 'lucide-svelte';
 	import { getContext } from 'svelte';
 	import type { Theme } from '$lib/types/context';
 
 	interface Props {
-		stats: { totalTenants: number; totalUsers: number; activeSessions: number; tenantName: string };
+		stats: {
+			totalTenants: number;
+			totalUsers: number;
+			activeSessions: number;
+			tenantName: string;
+			isSuperAdmin: boolean;
+		};
 	}
 
 	let { stats }: Props = $props();
@@ -21,14 +27,22 @@
 		<span style:color={theme.colors.text}>Admin Panel</span>
 	</div>
 
-	<div class="stats-grid" style:border-color={theme.colors.border}>
-		<div class="mini-stat">
-			<span class="mini-value" style:color={theme.colors.primary}>{stats.totalTenants}</span>
-			<span class="mini-label" style:color={theme.colors.textMuted}>Tenants</span>
-		</div>
+	<div
+		class="stats-grid"
+		class:two-col={!stats.isSuperAdmin}
+		style:border-color={theme.colors.border}
+	>
+		{#if stats.isSuperAdmin}
+			<div class="mini-stat">
+				<span class="mini-value" style:color={theme.colors.primary}>{stats.totalTenants}</span>
+				<span class="mini-label" style:color={theme.colors.textMuted}>Tenants</span>
+			</div>
+		{/if}
 		<div class="mini-stat">
 			<span class="mini-value" style:color={theme.colors.primary}>{stats.totalUsers}</span>
-			<span class="mini-label" style:color={theme.colors.textMuted}>Users</span>
+			<span class="mini-label" style:color={theme.colors.textMuted}>
+				{stats.isSuperAdmin ? 'Users' : 'Members'}
+			</span>
 		</div>
 		<div class="mini-stat">
 			<span class="mini-value" style:color={theme.colors.primary}>{stats.activeSessions}</span>
@@ -37,27 +51,41 @@
 	</div>
 
 	<nav class="admin-nav-links">
-		<a
-			href="/dashboard"
-			class="nav-link"
-			style:color={theme.colors.textMuted}
-			style:--hover-bg={theme.colors.border}
-		>
-			<ArrowLeft size={14} />
-			Dashboard
-		</a>
+		{#if !stats.isSuperAdmin}
+			<a
+				href="/dashboard"
+				class="nav-link"
+				style:color={theme.colors.textMuted}
+				style:--hover-bg={theme.colors.border}
+			>
+				<ArrowLeft size={14} />
+				Dashboard
+			</a>
+		{/if}
 
 		<div class="nav-divider" style:background={theme.colors.border}></div>
 
-		<a
-			href="/admin/panel"
-			class="nav-link"
-			style:color={theme.colors.textMuted}
-			style:--hover-bg={theme.colors.border}
-		>
-			<LayoutDashboard size={14} />
-			Overview
-		</a>
+		{#if stats.isSuperAdmin}
+			<a
+				href="/admin/panel"
+				class="nav-link"
+				style:color={theme.colors.textMuted}
+				style:--hover-bg={theme.colors.border}
+			>
+				<LayoutDashboard size={14} />
+				All Tenants
+			</a>
+		{:else}
+			<a
+				href="/admin/members"
+				class="nav-link"
+				style:color={theme.colors.textMuted}
+				style:--hover-bg={theme.colors.border}
+			>
+				<Users size={14} />
+				Members
+			</a>
+		{/if}
 	</nav>
 
 	<div
@@ -66,7 +94,11 @@
 		style:color={theme.colors.textMuted}
 	>
 		<User size={12} />
-		Viewing: <strong style:color={theme.colors.text}>{stats.tenantName}</strong>
+		{#if stats.isSuperAdmin}
+			<strong style:color={theme.colors.text}>Platform Admin</strong>
+		{:else}
+			Viewing: <strong style:color={theme.colors.text}>{stats.tenantName}</strong>
+		{/if}
 	</div>
 </aside>
 
@@ -99,6 +131,10 @@
 		border-top: 1px solid;
 		border-bottom: 1px solid;
 		margin-bottom: 0.75rem;
+	}
+
+	.stats-grid.two-col {
+		grid-template-columns: repeat(2, 1fr);
 	}
 
 	.mini-stat {

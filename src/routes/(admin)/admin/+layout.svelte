@@ -11,6 +11,7 @@
 				totalUsers: number;
 				activeSessions: number;
 				tenantName: string;
+				isSuperAdmin: boolean;
 			};
 		};
 		children: import('svelte').Snippet;

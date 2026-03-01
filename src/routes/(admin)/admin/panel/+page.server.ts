@@ -1,15 +1,21 @@
 // src/routes/(admin)/admin/panel/+page.server.ts
 
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/server/db';
 
-export const load: PageServerLoad = async () => {
-	// The (admin)/admin/+layout.server.ts already verified the role — safe to load.
-	// Build the tenant matrix: each tenant row includes its resolved feature flags.
-	const allTenants = db.tenants.all();
+export const load: PageServerLoad = async ({ locals }) => {
+	const { session } = locals;
+
+	// Only the platform superadmin sees all tenants — tenant admins go to /admin/members
+	if (session?.role !== 'superadmin') {
+		redirect(303, '/admin/members');
+	}
+
+	const customerTenants = db.tenants.customer();
 
 	return {
-		tenants: allTenants.map((t) => ({
+		tenants: customerTenants.map((t) => ({
 			id: t.id,
 			name: t.name,
 			slug: t.slug,

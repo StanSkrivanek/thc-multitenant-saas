@@ -23,7 +23,7 @@ interface DBUser {
 	email: string;
 	/** ⚠️ Demo only — plaintext comparison */
 	password: string;
-	role: 'member' | 'admin' | 'owner';
+	role: 'member' | 'admin' | 'owner' | 'superadmin';
 }
 
 interface DBSession {
@@ -41,6 +41,19 @@ interface DBFeatureFlag {
 // ─── Seed data ───────────────────────────────────────────────────────────────
 
 const tenants: DBTenant[] = [
+	// ── Platform (internal — not a customer tenant) ───────────────────────────
+	{
+		id: 'tenant_platform',
+		slug: 'platform',
+		name: 'SaaS Platform',
+		plan: 'enterprise',
+		branding: {
+			logoIcon: 'shield',
+			primaryColor: '#6366f1',
+			accentColor: '#818cf8'
+		}
+	},
+	// ── Customer tenants ──────────────────────────────────────────────────────
 	{
 		id: 'tenant_acme',
 		slug: 'acme',
@@ -77,38 +90,127 @@ const tenants: DBTenant[] = [
 ];
 
 const users: DBUser[] = [
-	// Acme
+	// ── Platform superadmin ───────────────────────────────────────────────────
+	{
+		id: 'user_superadmin',
+		tenantId: 'tenant_platform',
+		name: 'Platform Admin',
+		email: 'admin@platform.com',
+		password: 'password123',
+		role: 'superadmin'
+	},
+	// ── Acme Corp (enterprise) ────────────────────────────────────────────────
 	{
 		id: 'user_alice',
 		tenantId: 'tenant_acme',
-		name: 'Alice Admin',
+		name: 'Alice Anderson',
 		email: 'alice@acme.com',
 		password: 'password123',
-		role: 'admin'
+		role: 'owner'
 	},
 	{
 		id: 'user_bob',
 		tenantId: 'tenant_acme',
-		name: 'Bob Member',
+		name: 'Bob Baker',
 		email: 'bob@acme.com',
+		password: 'password123',
+		role: 'admin'
+	},
+	{
+		id: 'user_charlie',
+		tenantId: 'tenant_acme',
+		name: 'Charlie Chen',
+		email: 'charlie@acme.com',
 		password: 'password123',
 		role: 'member'
 	},
-	// Globex
+	{
+		id: 'user_diana',
+		tenantId: 'tenant_acme',
+		name: 'Diana Patel',
+		email: 'diana@acme.com',
+		password: 'password123',
+		role: 'member'
+	},
+	{
+		id: 'user_ethan',
+		tenantId: 'tenant_acme',
+		name: 'Ethan Moore',
+		email: 'ethan@acme.com',
+		password: 'password123',
+		role: 'member'
+	},
+	{
+		id: 'user_fiona',
+		tenantId: 'tenant_acme',
+		name: 'Fiona Liu',
+		email: 'fiona@acme.com',
+		password: 'password123',
+		role: 'member'
+	},
+	// ── Globex Inc (pro) ──────────────────────────────────────────────────────
 	{
 		id: 'user_carol',
 		tenantId: 'tenant_globex',
-		name: 'Carol Owner',
+		name: 'Carol Owen',
 		email: 'carol@globex.com',
 		password: 'password123',
 		role: 'owner'
 	},
-	// Initech
+	{
+		id: 'user_george',
+		tenantId: 'tenant_globex',
+		name: 'George Walsh',
+		email: 'george@globex.com',
+		password: 'password123',
+		role: 'admin'
+	},
+	{
+		id: 'user_hannah',
+		tenantId: 'tenant_globex',
+		name: 'Hannah Brooks',
+		email: 'hannah@globex.com',
+		password: 'password123',
+		role: 'member'
+	},
+	{
+		id: 'user_ivan',
+		tenantId: 'tenant_globex',
+		name: 'Ivan Reyes',
+		email: 'ivan@globex.com',
+		password: 'password123',
+		role: 'member'
+	},
+	// ── Initech LLC (free) ────────────────────────────────────────────────────
 	{
 		id: 'user_dave',
 		tenantId: 'tenant_initech',
-		name: 'Dave Member',
+		name: 'Dave Nguyen',
 		email: 'dave@initech.com',
+		password: 'password123',
+		role: 'owner'
+	},
+	{
+		id: 'user_judy',
+		tenantId: 'tenant_initech',
+		name: 'Judy Kim',
+		email: 'judy@initech.com',
+		password: 'password123',
+		role: 'admin'
+	},
+	{
+		id: 'user_kevin',
+		tenantId: 'tenant_initech',
+		name: 'Kevin Scott',
+		email: 'kevin@initech.com',
+		password: 'password123',
+		role: 'member'
+	},
+	{
+		id: 'user_laura',
+		tenantId: 'tenant_initech',
+		name: 'Laura Stone',
+		email: 'laura@initech.com',
 		password: 'password123',
 		role: 'member'
 	}
@@ -171,8 +273,13 @@ export const db = {
 		findBySlug(slug: string): DBTenant | null {
 			return tenants.find((t) => t.slug === slug) ?? null;
 		},
+		/** All tenants including the internal platform tenant. */
 		all(): DBTenant[] {
 			return [...tenants];
+		},
+		/** Customer tenants only — excludes the internal platform tenant. */
+		customer(): DBTenant[] {
+			return tenants.filter((t) => t.id !== 'tenant_platform');
 		}
 	},
 
@@ -185,6 +292,14 @@ export const db = {
 		},
 		findById(id: string): DBUser | null {
 			return users.find((u) => u.id === id) ?? null;
+		},
+		/** All users belonging to a specific tenant. */
+		forTenant(tenantId: string): DBUser[] {
+			return users.filter((u) => u.tenantId === tenantId);
+		},
+		/** All customer users — excludes platform superadmins. */
+		allCustomer(): DBUser[] {
+			return users.filter((u) => u.tenantId !== 'tenant_platform');
 		}
 	},
 

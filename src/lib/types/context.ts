@@ -19,7 +19,7 @@ export interface Theme {
 	};
 }
 
-export type TenantIconName = 'rocket' | 'zap' | 'building2';
+export type TenantIconName = 'rocket' | 'zap' | 'building2' | 'shield';
 
 export interface Tenant {
 	id: string;
@@ -45,6 +45,6 @@ export interface UserSession {
 	userId: string;
 	name: string;
 	email: string;
-	role: 'member' | 'admin' | 'owner';
+	role: 'member' | 'admin' | 'owner' | 'superadmin';
 	tenantId: string;
 }
